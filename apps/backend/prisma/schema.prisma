@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id       String   @id @default(cuid())
+  name     String
+  initials String
+  actions  Action[]
+}
+
+model RoiSettings {
+  id                   String @id @default(cuid())
+  currency             String @default("EUR")
+  discountRate         Float  @default(0.08)
+  taxRate              Float  @default(0.30)
+  cashflowHorizonYears Int    @default(10)
+}
+
+model Variable {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  unit         String   @default("")
+  method       String   @default("fix")
+  startYear    Int
+  horizonYears Int      @default(10)
+  startValue   Float    @default(0)
+  cagr         Float    @default(0)
+  manualValues String   @default("{}")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  actions      Action[] @relation("MonetizationVariable")
+}
+
+model Action {
+  id           String    @id @default(cuid())
+  title        String
+  description  String?
+  status       String    @default("OFFEN")
+  assigneeId   String?
+  assignee     User?     @relation(fields: [assigneeId], references: [id])
+  startDate    DateTime?
+  dueDate      DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  progressNote String?
+
+  kpiName            String?
+  kpiUnit            String?
+  kpiBaselinePerYear Float?
+  impactType         String?
+  impactValue        Float?
+
+  monetizationFixedEurPerUnit Float?
+  monetizationVariableId      String?
+  monetizationVariable        Variable? @relation("MonetizationVariable", fields: [monetizationVariableId], references: [id])
+
+  capexEquipment    Float?
+  capexInstallation Float?
+  capexSoftware     Float?
+  capexConsulting   Float?
+  capexOther        Float?
+
+  grantAmount  Float?
+  grantPercent Float?
+
+  opexMaintenance Float?
+  opexLicenses    Float?
+  opexPersonnel   Float?
+  opexOther       Float?
+
+  otherBenefitsPerYear Float?
+  otherCostsPerYear    Float?
+  depreciationYears    Int?
+  justification        String?
+}
