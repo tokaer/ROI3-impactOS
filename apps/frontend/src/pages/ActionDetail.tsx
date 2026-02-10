@@ -15,16 +15,16 @@ import type { Action, ActionStatus, User, RoiSettings } from "../types";
 
 const STATUS_OPTIONS: { value: ActionStatus; label: string; color: string }[] =
   [
-    { value: "OFFEN", label: "Offen", color: "bg-orange-100 text-orange-700" },
+    { value: "OFFEN", label: "Offen", color: "bg-warn-60 text-warn-100" },
     {
       value: "IN_PROGRESS",
       label: "In Bearbeitung",
-      color: "bg-blue-100 text-blue-700",
+      color: "bg-blue-10 text-blue-100",
     },
     {
       value: "DONE",
       label: "Abgeschlossen",
-      color: "bg-green-100 text-green-700",
+      color: "bg-succ-60 text-succ-100",
     },
   ];
 
@@ -147,7 +147,7 @@ export default function ActionDetail() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent-lilac-text border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-100 border-t-transparent" />
       </div>
     );
   }
@@ -155,7 +155,7 @@ export default function ActionDetail() {
   if (!action) {
     return (
       <div className="p-6">
-        <p className="text-text-subtle">Aktion nicht gefunden.</p>
+        <p className="text-an-60">Aktion nicht gefunden.</p>
       </div>
     );
   }
@@ -176,12 +176,12 @@ export default function ActionDetail() {
           { label: action.title },
         ]}
       />
-      <h1 className="mt-2 text-xl font-semibold text-text-primary">
+      <h1 className="mt-2 text-xl font-semibold text-an-100">
         Aktionen
       </h1>
 
       {/* Main Content */}
-      <div className="mt-6 rounded-2xl border border-border-gray bg-white p-8">
+      <div className="mt-6 rounded-md border border-border-gray bg-white p-8">
         <div className="flex gap-8">
           {/* Left Column */}
           <div className="flex-1 min-w-0">
@@ -189,24 +189,24 @@ export default function ActionDetail() {
             <div className="flex justify-end gap-2 mb-6">
               <button
                 onClick={handleShare}
-                className="rounded-lg p-2 hover:bg-gray-100 transition-colors"
+                className="rounded-md p-2 hover:bg-sfgray-10 transition-colors"
                 title="Link teilen"
               >
-                <Share2 size={18} className="text-text-subtle" />
+                <Share2 size={18} className="text-an-60" />
               </button>
               <button
                 onClick={handleDelete}
-                className="rounded-lg p-2 hover:bg-red-50 transition-colors"
+                className="rounded-md p-2 hover:bg-dang-60 transition-colors"
                 title="Loeschen"
               >
-                <Trash2 size={18} className="text-text-subtle hover:text-red-500" />
+                <Trash2 size={18} className="text-an-60 hover:text-dang-80" />
               </button>
             </div>
 
             {/* Name */}
             <div className="mb-6">
-              <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
-                Name <span className="text-red-400">*</span>
+              <label className="mb-1 block text-sm font-medium text-blue-100">
+                Name <span className="text-dang-80">*</span>
               </label>
               <input
                 value={action.title}
@@ -214,13 +214,13 @@ export default function ActionDetail() {
                   setAction({ ...action, title: e.target.value });
                   debouncedSave("title", e.target.value);
                 }}
-                className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm font-semibold text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+                className="w-full rounded-md border border-border-gray px-4 py-3 text-md font-semibold text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
               />
             </div>
 
             {/* Description */}
             <div className="mb-8">
-              <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+              <label className="mb-1 block text-sm font-medium text-blue-100">
                 Beschreibung:
               </label>
               <textarea
@@ -230,16 +230,16 @@ export default function ActionDetail() {
                   debouncedSave("description", e.target.value || null);
                 }}
                 rows={5}
-                className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac resize-y"
+                className="w-full rounded-md border border-border-gray px-4 py-3 text-md text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100 resize-y"
               />
             </div>
 
             {/* Progress */}
             <div>
-              <h3 className="mb-3 text-base font-semibold text-text-primary">
+              <h3 className="mb-3 text-lg font-semibold text-an-100">
                 Progress
               </h3>
-              <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+              <label className="mb-1 block text-sm font-medium text-blue-100">
                 Hinweis:
               </label>
               <textarea
@@ -250,7 +250,7 @@ export default function ActionDetail() {
                 }}
                 rows={5}
                 placeholder="Notiz schreiben"
-                className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm text-text-primary outline-none focus:border-accent-lilac-text focus:ring-2 focus:ring-accent-lilac resize-y"
+                className="w-full rounded-md border border-border-gray px-4 py-3 text-md text-an-100 outline-none focus:border-blue-100 focus:ring-2 focus:ring-lilac-100 resize-y"
               />
             </div>
           </div>
@@ -260,17 +260,17 @@ export default function ActionDetail() {
             <div className="space-y-4">
               {/* Status */}
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-subtle">Status</span>
+                <span className="text-md text-an-60">Status</span>
                 <div className="relative" ref={statusRef}>
                   <button
                     onClick={() => setShowStatusDropdown(!showStatusDropdown)}
-                    className={`rounded-full px-3 py-1 text-xs font-medium ${statusOpt?.color ?? ""}`}
+                    className={`rounded-full px-3 py-1 text-sm font-medium ${statusOpt?.color ?? ""}`}
                   >
                     <span className="mr-1 inline-block h-2 w-2 rounded-full bg-current opacity-50" />
                     {statusOpt?.label}
                   </button>
                   {showStatusDropdown && (
-                    <div className="absolute right-0 top-full z-10 mt-1 w-44 rounded-lg border border-border-gray bg-white shadow-lg">
+                    <div className="absolute right-0 top-full z-10 mt-1 w-44 rounded-md border border-border-gray bg-white shadow-lg">
                       {STATUS_OPTIONS.map((opt) => (
                         <button
                           key={opt.value}
@@ -279,7 +279,7 @@ export default function ActionDetail() {
                             immediateSave("status", opt.value);
                             setShowStatusDropdown(false);
                           }}
-                          className={`flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-gray-50 ${
+                          className={`flex w-full items-center gap-2 px-3 py-2 text-md hover:bg-sfgray-5 ${
                             action.status === opt.value ? "font-medium" : ""
                           }`}
                         >
@@ -296,16 +296,16 @@ export default function ActionDetail() {
 
               {/* Dates metadata */}
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-subtle">Erstellt am</span>
-                <span className="text-sm text-text-primary">
+                <span className="text-md text-an-60">Erstellt am</span>
+                <span className="text-md text-an-100">
                   {formatDateDisplay(action.createdAt)}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-subtle">
+                <span className="text-md text-an-60">
                   Zuletzt aktualisiert
                 </span>
-                <span className="text-sm text-text-primary">
+                <span className="text-md text-an-100">
                   {formatDateDisplay(action.updatedAt)}
                 </span>
               </div>
@@ -313,13 +313,13 @@ export default function ActionDetail() {
               {/* Divider */}
               <hr className="border-border-gray" />
 
-              <h4 className="text-sm font-semibold text-text-primary">
+              <h4 className="text-md font-semibold text-an-100">
                 Details
               </h4>
 
               {/* Assignee */}
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-subtle">
+                <span className="text-md text-an-60">
                   Verantwortlich
                 </span>
                 <div className="relative" ref={assigneeRef}>
@@ -327,11 +327,11 @@ export default function ActionDetail() {
                     onClick={() =>
                       setShowAssigneeDropdown(!showAssigneeDropdown)
                     }
-                    className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-xs text-text-subtle hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-sm text-an-60 hover:bg-sfgray-5 transition-colors"
                   >
                     {action.assignee ? (
                       <>
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sidebar-dark text-[9px] font-medium text-white">
+                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-darkgreen-100 text-[9px] font-medium text-white">
                           {action.assignee.initials}
                         </span>
                         {action.assignee.name}
@@ -344,7 +344,7 @@ export default function ActionDetail() {
                     )}
                   </button>
                   {showAssigneeDropdown && (
-                    <div className="absolute right-0 top-full z-10 mt-1 w-52 rounded-lg border border-border-gray bg-white shadow-lg">
+                    <div className="absolute right-0 top-full z-10 mt-1 w-52 rounded-md border border-border-gray bg-white shadow-lg">
                       <button
                         onClick={() => {
                           setAction({
@@ -355,9 +355,9 @@ export default function ActionDetail() {
                           immediateSave("assigneeId", null);
                           setShowAssigneeDropdown(false);
                         }}
-                        className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-gray-50"
+                        className="flex w-full items-center gap-2 px-3 py-2 text-md hover:bg-sfgray-5"
                       >
-                        <UserPlus size={14} className="text-text-subtle" />
+                        <UserPlus size={14} className="text-an-60" />
                         nicht zugewiesen
                       </button>
                       {users.map((u) => (
@@ -372,11 +372,11 @@ export default function ActionDetail() {
                             immediateSave("assigneeId", u.id);
                             setShowAssigneeDropdown(false);
                           }}
-                          className={`flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-gray-50 ${
+                          className={`flex w-full items-center gap-2 px-3 py-2 text-md hover:bg-sfgray-5 ${
                             action.assigneeId === u.id ? "font-medium" : ""
                           }`}
                         >
-                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sidebar-dark text-[9px] font-medium text-white">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-darkgreen-100 text-[9px] font-medium text-white">
                             {u.initials}
                           </span>
                           {u.name}
@@ -389,8 +389,8 @@ export default function ActionDetail() {
 
               {/* Start Date */}
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-subtle">Start Datum</span>
-                <div className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-xs text-text-subtle">
+                <span className="text-md text-an-60">Start Datum</span>
+                <div className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-sm text-an-60">
                   <Play size={10} fill="currentColor" />
                   <input
                     type="date"
@@ -400,15 +400,15 @@ export default function ActionDetail() {
                       setAction({ ...action, startDate: val });
                       immediateSave("startDate", val);
                     }}
-                    className="bg-transparent text-xs outline-none"
+                    className="bg-transparent text-sm outline-none"
                   />
                 </div>
               </div>
 
               {/* Due Date */}
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-subtle">Zieldatum</span>
-                <div className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-xs text-text-subtle">
+                <span className="text-md text-an-60">Zieldatum</span>
+                <div className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-sm text-an-60">
                   <Clock size={10} />
                   <input
                     type="date"
@@ -418,7 +418,7 @@ export default function ActionDetail() {
                       setAction({ ...action, dueDate: val });
                       immediateSave("dueDate", val);
                     }}
-                    className="bg-transparent text-xs outline-none"
+                    className="bg-transparent text-sm outline-none"
                   />
                 </div>
               </div>
@@ -438,7 +438,7 @@ export default function ActionDetail() {
 
       {/* Toast */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 rounded-lg bg-sidebar-dark px-4 py-2 text-sm text-white shadow-lg">
+        <div className="fixed bottom-6 right-6 z-50 rounded-md bg-darkgreen-100 px-4 py-2 text-md text-white shadow-lg">
           {toast}
         </div>
       )}

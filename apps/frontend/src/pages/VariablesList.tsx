@@ -68,7 +68,7 @@ export default function VariablesList() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent-lilac-text border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-100 border-t-transparent" />
       </div>
     );
   }
@@ -82,10 +82,10 @@ export default function VariablesList() {
           { label: "Variablen" },
         ]}
       />
-      <h1 className="mt-2 text-xl font-semibold text-text-primary">
+      <h1 className="mt-2 text-xl font-semibold text-an-100">
         Variablen
       </h1>
-      <p className="mt-1 text-sm text-text-subtle">
+      <p className="mt-1 text-md text-an-60">
         Zeitreihen-Variablen fuer die Monetarisierung (z.B. Preise, Tarife)
       </p>
 
@@ -93,7 +93,7 @@ export default function VariablesList() {
       <div className="mt-5 flex justify-end">
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-xl border-2 border-text-primary bg-white px-5 py-2.5 text-sm font-semibold text-text-primary hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-2 rounded-md border-2 border-an-100 bg-white px-5 py-2.5 text-md font-semibold text-an-100 hover:bg-sfgray-5 transition-colors"
         >
           <Plus size={18} strokeWidth={2} />
           Neue Variable
@@ -102,13 +102,13 @@ export default function VariablesList() {
 
       {/* Create inline form */}
       {showCreate && (
-        <div className="mt-4 rounded-xl border border-accent-lilac bg-accent-lilac/5 p-4">
+        <div className="mt-4 rounded-md border border-lilac-100 bg-lilac-10 p-4">
           <div className="flex gap-3">
             <input
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="Name (z.B. Strompreis)"
-              className="flex-1 rounded-lg border border-border-gray px-3 py-2 text-sm outline-none focus:border-accent-lilac-text"
+              className="flex-1 rounded-md border border-border-gray px-3 py-2 text-md outline-none focus:border-blue-100"
               autoFocus
               onKeyDown={(e) => e.key === "Enter" && handleCreate()}
             />
@@ -116,19 +116,19 @@ export default function VariablesList() {
               value={newUnit}
               onChange={(e) => setNewUnit(e.target.value)}
               placeholder="Einheit (z.B. EUR/kWh)"
-              className="w-40 rounded-lg border border-border-gray px-3 py-2 text-sm outline-none focus:border-accent-lilac-text"
+              className="w-40 rounded-md border border-border-gray px-3 py-2 text-md outline-none focus:border-blue-100"
               onKeyDown={(e) => e.key === "Enter" && handleCreate()}
             />
             <button
               onClick={handleCreate}
               disabled={!newName.trim()}
-              className="rounded-lg bg-accent-lilac-text px-4 py-2 text-sm font-medium text-white hover:bg-accent-lilac-text/90 disabled:opacity-50"
+              className="rounded-md bg-blue-100 px-4 py-2 text-md font-medium text-white hover:bg-blue-100/90 disabled:opacity-50"
             >
               Erstellen
             </button>
             <button
               onClick={() => setShowCreate(false)}
-              className="rounded-lg border border-border-gray px-4 py-2 text-sm text-text-subtle hover:bg-gray-50"
+              className="rounded-md border border-border-gray px-4 py-2 text-md text-an-60 hover:bg-sfgray-5"
             >
               Abbrechen
             </button>
@@ -138,33 +138,33 @@ export default function VariablesList() {
 
       {/* Table */}
       {variables.length === 0 ? (
-        <div className="mt-8 flex flex-col items-center justify-center rounded-xl border border-border-gray p-16">
-          <TrendingUp size={32} className="text-text-subtle mb-3" />
-          <p className="text-sm text-text-subtle">
+        <div className="mt-8 flex flex-col items-center justify-center rounded-md border border-border-gray p-16">
+          <TrendingUp size={32} className="text-an-60 mb-3" />
+          <p className="text-md text-an-60">
             Noch keine Variablen angelegt.
           </p>
         </div>
       ) : (
-        <div className="mt-4 overflow-hidden rounded-xl border border-border-gray">
+        <div className="mt-4 overflow-hidden rounded-md border border-border-gray">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-gray bg-gray-50/70">
-                <th className="px-4 py-3 text-left text-xs font-medium text-text-subtle uppercase tracking-wider">
+              <tr className="border-b border-border-gray bg-sfgray-5">
+                <th className="px-4 py-3 text-left text-sm font-medium text-an-60 uppercase tracking-wider">
                   Name
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-text-subtle uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-sm font-medium text-an-60 uppercase tracking-wider">
                   Einheit
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-text-subtle uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-sm font-medium text-an-60 uppercase tracking-wider">
                   Methode
                 </th>
-                <th className="px-4 py-3 text-right text-xs font-medium text-text-subtle uppercase tracking-wider">
+                <th className="px-4 py-3 text-right text-sm font-medium text-an-60 uppercase tracking-wider">
                   Startwert
                 </th>
-                <th className="px-4 py-3 text-right text-xs font-medium text-text-subtle uppercase tracking-wider">
+                <th className="px-4 py-3 text-right text-sm font-medium text-an-60 uppercase tracking-wider">
                   CAGR
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-text-subtle uppercase tracking-wider">
+                <th className="px-4 py-3 text-center text-sm font-medium text-an-60 uppercase tracking-wider">
                   Zeitraum
                 </th>
                 <th className="px-4 py-3 w-20" />
@@ -174,41 +174,41 @@ export default function VariablesList() {
               {variables.map((v) => (
                 <tr
                   key={v.id}
-                  className="border-b border-border-gray last:border-b-0 hover:bg-gray-50/50 cursor-pointer transition-colors"
+                  className="border-b border-border-gray last:border-b-0 hover:bg-sfgray-5 cursor-pointer transition-colors"
                   onClick={() =>
                     navigate(`/strategy/esg-hub/variables/${v.id}`)
                   }
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <Hash size={14} className="text-accent-lilac-text" />
-                      <span className="text-sm font-medium text-text-primary">
+                      <Hash size={14} className="text-blue-100" />
+                      <span className="text-md font-medium text-an-100">
                         {v.name}
                       </span>
                     </div>
                     {v.description && (
-                      <p className="mt-0.5 text-xs text-text-subtle truncate max-w-xs">
+                      <p className="mt-0.5 text-sm text-an-60 truncate max-w-xs">
                         {v.description}
                       </p>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-sm text-text-subtle">
+                  <td className="px-4 py-3 text-md text-an-60">
                     {v.unit}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-text-subtle">
+                    <span className="rounded-full bg-sfgray-10 px-2 py-0.5 text-sm font-medium text-an-60">
                       {METHOD_LABELS[v.method] || v.method}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right text-sm text-text-primary font-mono">
+                  <td className="px-4 py-3 text-right text-md text-an-100 font-mono">
                     {v.startValue}
                   </td>
-                  <td className="px-4 py-3 text-right text-sm text-text-primary font-mono">
+                  <td className="px-4 py-3 text-right text-md text-an-100 font-mono">
                     {v.method === "cagr"
                       ? `${(v.cagr * 100).toFixed(1)}%`
                       : "-"}
                   </td>
-                  <td className="px-4 py-3 text-center text-sm text-text-subtle">
+                  <td className="px-4 py-3 text-center text-md text-an-60">
                     {v.startYear} - {v.startYear + v.horizonYears}
                   </td>
                   <td className="px-4 py-3">
@@ -220,20 +220,20 @@ export default function VariablesList() {
                             `/strategy/esg-hub/variables/${v.id}`
                           );
                         }}
-                        className="rounded-lg p-1.5 hover:bg-gray-100 transition-colors"
+                        className="rounded-md p-1.5 hover:bg-sfgray-10 transition-colors"
                       >
-                        <Pencil size={14} className="text-text-subtle" />
+                        <Pencil size={14} className="text-an-60" />
                       </button>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleDelete(v.id, v.name);
                         }}
-                        className="rounded-lg p-1.5 hover:bg-red-50 transition-colors"
+                        className="rounded-md p-1.5 hover:bg-dang-60 transition-colors"
                       >
                         <Trash2
                           size={14}
-                          className="text-text-subtle hover:text-red-500"
+                          className="text-an-60 hover:text-dang-80"
                         />
                       </button>
                     </div>

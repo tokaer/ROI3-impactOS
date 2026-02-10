@@ -103,7 +103,7 @@ export default function RoiDashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent-lilac-text border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-100 border-t-transparent" />
       </div>
     );
   }
@@ -117,24 +117,24 @@ export default function RoiDashboard() {
           { label: "ROI Dashboard" },
         ]}
       />
-      <h1 className="mt-2 text-xl font-semibold text-text-primary">
+      <h1 className="mt-2 text-xl font-semibold text-an-100">
         ROI Dashboard
       </h1>
-      <p className="mt-1 text-sm text-text-subtle">
+      <p className="mt-1 text-md text-an-60">
         Portfolio-Uebersicht aller Massnahmen mit ROI-Berechnung
       </p>
 
       {/* Filters */}
       <div className="mt-4 flex items-center gap-2">
-        <span className="text-sm text-text-subtle mr-1">Filter:</span>
+        <span className="text-md text-an-60 mr-1">Filter:</span>
         {(["OFFEN", "IN_PROGRESS", "DONE"] as ActionStatus[]).map((s) => (
           <button
             key={s}
             onClick={() => toggleStatus(s)}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+            className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
               statusFilter.includes(s)
-                ? "bg-accent-lilac text-accent-lilac-text"
-                : "bg-gray-100 text-text-subtle hover:bg-gray-200"
+                ? "bg-lilac-100 text-blue-100"
+                : "bg-sfgray-10 text-an-60 hover:bg-sfgray-20"
             }`}
           >
             {STATUS_LABELS[s]}
@@ -143,12 +143,12 @@ export default function RoiDashboard() {
         {statusFilter.length > 0 && (
           <button
             onClick={() => setStatusFilter([])}
-            className="text-xs text-accent-lilac-text hover:underline ml-2"
+            className="text-sm text-blue-100 hover:underline ml-2"
           >
             Alle anzeigen
           </button>
         )}
-        <span className="ml-auto text-sm text-text-subtle">
+        <span className="ml-auto text-md text-an-60">
           {roiResults.length} von {filteredActions.length} Aktionen mit ROI-Daten
         </span>
       </div>
@@ -172,8 +172,8 @@ export default function RoiDashboard() {
       {/* Charts */}
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* NPV by Action */}
-        <div className="rounded-2xl border border-border-gray bg-white p-5">
-          <h3 className="mb-3 text-sm font-semibold text-text-primary">
+        <div className="rounded-md border border-border-gray bg-white p-5">
+          <h3 className="mb-3 text-md font-semibold text-an-100">
             NPV je Massnahme
           </h3>
           {npvChartData.length > 0 ? (
@@ -184,7 +184,7 @@ export default function RoiDashboard() {
                   layout="vertical"
                   margin={{ top: 5, right: 20, bottom: 5, left: 10 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E7E7E7" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E8E9ED" />
                   <XAxis
                     type="number"
                     tick={{ fontSize: 10 }}
@@ -206,7 +206,7 @@ export default function RoiDashboard() {
                     {npvChartData.map((entry, idx) => (
                       <Cell
                         key={idx}
-                        fill={entry.npv >= 0 ? "#7C5CFC" : "#f87171"}
+                        fill={entry.npv >= 0 ? "#5D47FF" : "#F4516C"}
                         cursor="pointer"
                         onClick={() =>
                           navigate(
@@ -220,15 +220,15 @@ export default function RoiDashboard() {
               </ResponsiveContainer>
             </div>
           ) : (
-            <p className="py-8 text-center text-sm text-text-subtle">
+            <p className="py-8 text-center text-md text-an-60">
               Keine Daten vorhanden
             </p>
           )}
         </div>
 
         {/* MACC */}
-        <div className="rounded-2xl border border-border-gray bg-white p-5">
-          <h3 className="mb-3 text-sm font-semibold text-text-primary">
+        <div className="rounded-md border border-border-gray bg-white p-5">
+          <h3 className="mb-3 text-md font-semibold text-an-100">
             MACC (Vermeidungskosten)
           </h3>
           {maccChartData.length > 0 ? (
@@ -238,7 +238,7 @@ export default function RoiDashboard() {
                   data={maccChartData}
                   margin={{ top: 5, right: 20, bottom: 5, left: 10 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E7E7E7" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E8E9ED" />
                   <XAxis dataKey="name" tick={{ fontSize: 9 }} angle={-20} textAnchor="end" height={50} />
                   <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${v.toFixed(0)}`} />
                   <Tooltip
@@ -251,7 +251,7 @@ export default function RoiDashboard() {
                     {maccChartData.map((entry, idx) => (
                       <Cell
                         key={idx}
-                        fill={entry.macc <= 0 ? "#22c55e" : "#f59e0b"}
+                        fill={entry.macc <= 0 ? "#008C6F" : "#DE9906"}
                         cursor="pointer"
                         onClick={() =>
                           navigate(
@@ -265,7 +265,7 @@ export default function RoiDashboard() {
               </ResponsiveContainer>
             </div>
           ) : (
-            <p className="py-8 text-center text-sm text-text-subtle">
+            <p className="py-8 text-center text-md text-an-60">
               Keine Daten vorhanden
             </p>
           )}
@@ -273,42 +273,42 @@ export default function RoiDashboard() {
       </div>
 
       {/* Actions Table */}
-      <div className="mt-6 rounded-2xl border border-border-gray bg-white overflow-hidden">
+      <div className="mt-6 rounded-md border border-border-gray bg-white overflow-hidden">
         <div className="px-5 py-4 border-b border-border-gray">
-          <h3 className="text-sm font-semibold text-text-primary">
+          <h3 className="text-md font-semibold text-an-100">
             Detailuebersicht
           </h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-md">
             <thead>
-              <tr className="bg-gray-50/70 border-b border-border-gray">
-                <th className="px-4 py-2 text-left text-xs font-medium text-text-subtle">Massnahme</th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-text-subtle">Status</th>
-                <th className="px-4 py-2 text-right text-xs font-medium text-text-subtle">CAPEX</th>
-                <th className="px-4 py-2 text-right text-xs font-medium text-text-subtle">Netto-CAPEX</th>
-                <th className="px-4 py-2 text-right text-xs font-medium text-text-subtle">NPV</th>
-                <th className="px-4 py-2 text-right text-xs font-medium text-text-subtle">IRR</th>
-                <th className="px-4 py-2 text-right text-xs font-medium text-text-subtle">Payback</th>
-                <th className="px-4 py-2 text-right text-xs font-medium text-text-subtle">Quick ROI</th>
+              <tr className="bg-sfgray-5 border-b border-border-gray">
+                <th className="px-4 py-2 text-left text-sm font-medium text-an-60">Massnahme</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-an-60">Status</th>
+                <th className="px-4 py-2 text-right text-sm font-medium text-an-60">CAPEX</th>
+                <th className="px-4 py-2 text-right text-sm font-medium text-an-60">Netto-CAPEX</th>
+                <th className="px-4 py-2 text-right text-sm font-medium text-an-60">NPV</th>
+                <th className="px-4 py-2 text-right text-sm font-medium text-an-60">IRR</th>
+                <th className="px-4 py-2 text-right text-sm font-medium text-an-60">Payback</th>
+                <th className="px-4 py-2 text-right text-sm font-medium text-an-60">Quick ROI</th>
               </tr>
             </thead>
             <tbody>
               {roiResults.map(({ action, roi }) => (
                 <tr
                   key={action.id}
-                  className="border-b border-border-gray last:border-b-0 hover:bg-gray-50/50 cursor-pointer transition-colors"
+                  className="border-b border-border-gray last:border-b-0 hover:bg-sfgray-5 cursor-pointer transition-colors"
                   onClick={() =>
                     navigate(`/strategy/esg-hub/actions/${action.id}`)
                   }
                 >
                   <td className="px-4 py-2.5">
-                    <span className="font-medium text-text-primary">
+                    <span className="font-medium text-an-100">
                       {action.title}
                     </span>
                   </td>
                   <td className="px-4 py-2.5">
-                    <span className="text-xs text-text-subtle">
+                    <span className="text-sm text-an-60">
                       {STATUS_LABELS[action.status as ActionStatus]}
                     </span>
                   </td>
@@ -320,7 +320,7 @@ export default function RoiDashboard() {
                   </td>
                   <td
                     className={`px-4 py-2.5 text-right font-mono font-medium ${
-                      roi.npv >= 0 ? "text-green-700" : "text-red-600"
+                      roi.npv >= 0 ? "text-succ-100" : "text-dang-80"
                     }`}
                   >
                     {formatEur(roi.npv)}
@@ -340,12 +340,12 @@ export default function RoiDashboard() {
               ))}
               {/* Totals row */}
               {roiResults.length > 0 && (
-                <tr className="bg-gray-50/70 font-semibold">
-                  <td className="px-4 py-2.5 text-text-primary">Gesamt</td>
+                <tr className="bg-sfgray-5 font-semibold">
+                  <td className="px-4 py-2.5 text-an-100">Gesamt</td>
                   <td className="px-4 py-2.5" />
                   <td className="px-4 py-2.5 text-right font-mono">{formatEur(totalCapex)}</td>
                   <td className="px-4 py-2.5 text-right font-mono">{formatEur(totalNetCapex)}</td>
-                  <td className={`px-4 py-2.5 text-right font-mono ${totalNpv >= 0 ? "text-green-700" : "text-red-600"}`}>
+                  <td className={`px-4 py-2.5 text-right font-mono ${totalNpv >= 0 ? "text-succ-100" : "text-dang-80"}`}>
                     {formatEur(totalNpv)}
                   </td>
                   <td className="px-4 py-2.5" />
@@ -375,16 +375,16 @@ function SummaryTile({
   color?: "green" | "red";
 }) {
   return (
-    <div className="rounded-xl border border-border-gray bg-white p-4">
-      <span className="text-xs text-text-subtle">{label}</span>
-      {sub && <span className="text-[10px] text-text-subtle ml-1">({sub})</span>}
+    <div className="rounded-md border border-border-gray bg-white p-4">
+      <span className="text-sm text-an-60">{label}</span>
+      {sub && <span className="text-xs text-an-60 ml-1">({sub})</span>}
       <p
-        className={`mt-1 text-lg font-bold ${
+        className={`mt-1 text-xl font-bold ${
           color === "green"
-            ? "text-green-700"
+            ? "text-succ-100"
             : color === "red"
-            ? "text-red-600"
-            : "text-text-primary"
+            ? "text-dang-80"
+            : "text-an-100"
         }`}
       >
         {value}

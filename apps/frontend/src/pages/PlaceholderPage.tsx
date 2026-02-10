@@ -10,9 +10,9 @@ export default function PlaceholderPage({ title }: { title: string }) {
           { label: title },
         ]}
       />
-      <h1 className="mt-2 text-xl font-semibold text-text-primary">{title}</h1>
-      <div className="mt-8 flex items-center justify-center rounded-xl border border-border-gray p-16">
-        <p className="text-text-subtle">
+      <h1 className="mt-2 text-xl font-semibold text-an-100">{title}</h1>
+      <div className="mt-8 flex items-center justify-center rounded-md border border-border-gray p-16">
+        <p className="text-an-60">
           Diese Seite ist noch nicht implementiert.
         </p>
       </div>

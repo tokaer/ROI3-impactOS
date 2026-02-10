@@ -1,23 +1,223 @@
 @import "tailwindcss";
 
+/* ── Saans Font Face Declarations ──────────────────────────────────────── */
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansRegular.otf') format('opentype');
+  font-weight: 380;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansRegularItalic.otf') format('opentype');
+  font-weight: 380;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansMedium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansMediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansSemiBold.otf') format('opentype');
+  font-weight: 670;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansSemiBoldItalic.otf') format('opentype');
+  font-weight: 670;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansBold.otf') format('opentype');
+  font-weight: 790;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/SaansBoldItalic.otf') format('opentype');
+  font-weight: 790;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── Design System Theme ───────────────────────────────────────────────── */
 @theme {
-  --color-sidebar-dark: #073B2F;
-  --color-sidebar-darker: #062F25;
-  --color-sidebar-hover: #0A4D3D;
-  --color-accent-lilac: #D9CCFF;
-  --color-accent-lilac-hover: #E8E0FF;
-  --color-accent-lilac-text: #7C5CFC;
-  --color-cta-yellow: #F3F0B3;
-  --color-cta-yellow-hover: #FBF8CF;
-  --color-border-gray: #E7E7E7;
-  --color-text-subtle: #6B7280;
-  --color-text-primary: #111827;
-  --font-family-sans: "Inter", system-ui, sans-serif;
+  /* Font family */
+  --font-family-sans: 'Saans', sans-serif;
+
+  /* Font weights (matching Saans) */
+  --font-weight-normal: 380;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 670;
+  --font-weight-bold: 790;
+
+  /* Font sizes */
+  --font-size-xs: 10px;
+  --line-height-xs: 16px;
+  --font-size-sm: 12px;
+  --line-height-sm: 18px;
+  --font-size-md: 14px;
+  --line-height-md: 22px;
+  --font-size-lg: 16px;
+  --line-height-lg: 24px;
+  --font-size-xl: 20px;
+  --line-height-xl: 28px;
+  --font-size-2xl: 22px;
+  --line-height-2xl: 32px;
+  --font-size-3xl: 26px;
+  --line-height-3xl: 32px;
+  --font-size-4xl: 32px;
+  --line-height-4xl: 36px;
+
+  /* Primary palette */
+  --color-primary: #DAC4FF;
+  --color-secondary: #B4FA64;
+  --color-tertiary: #F4F0ED;
+
+  /* Anthracite scale */
+  --color-an-10: #E9EAEA;
+  --color-an-20: #D3D5D8;
+  --color-an-40: #A7ABAD;
+  --color-an-60: #7B8184;
+  --color-an-80: #4F575B;
+  --color-an-90: #3C4245;
+  --color-an-100: #232D32;
+
+  /* Gray scale */
+  --color-gray-5: #F9F9F9;
+  --color-gray-10: #EBEBEB;
+  --color-gray-20: #E4E4E4;
+
+  /* Dark green */
+  --color-darkgreen-10: #E5E9E8;
+  --color-darkgreen-25: #BFC9C5;
+  --color-darkgreen-50: #80928A;
+  --color-darkgreen-75: #405C50;
+  --color-darkgreen-100: #002616;
+
+  /* Lilac */
+  --color-lilac-10: #FBF9FF;
+  --color-lilac-20: #F8F3FF;
+  --color-lilac-40: #F0E7FF;
+  --color-lilac-60: #E9DCFF;
+  --color-lilac-80: #EBDBFE;
+  --color-lilac-100: #DAC4FF;
+
+  /* Blue */
+  --color-blue-10: #EFEDFF;
+  --color-blue-100: #5D47FF;
+
+  /* Coral */
+  --color-coral-10: #FFF7F4;
+  --color-coral-100: #FFAF94;
+
+  /* Morningsun */
+  --color-morningsun-40: #FFFCE5;
+  --color-morningsun-100: #FEF8BD;
+
+  /* Green */
+  --color-green-10: #F2FAF3;
+  --color-green-100: #7CCD87;
+
+  /* Soft green */
+  --color-softgreen-10: #EFF7F5;
+  --color-softgreen-60: #9FCFC2;
+  --color-softgreen-100: #5FAF9A;
+
+  /* Red */
+  --color-red-10: #FEEEF0;
+  --color-red-100: #F4516C;
+
+  /* SF palette */
+  --color-sfblue-10: #EDF1FC;
+  --color-sfblue-100: #4A6FE3;
+  --color-sforange-10: #FFF4F1;
+  --color-sforange-100: #FD9073;
+  --color-sfgreen-10: #EFF7F5;
+  --color-sfgreen-40: #BFDFD7;
+  --color-sfgreen-100: #5FAF9A;
+  --color-sfgray-5: #F9F9F9;
+  --color-sfgray-10: #F4F4F6;
+  --color-sfgray-20: #E8E9ED;
+  --color-sfgray-40: #D2D4DB;
+  --color-sfgray-60: #BBBEC9;
+  --color-sfgray-100: #8E93A5;
+  --color-sfpurple-10: #F8F5FD;
+  --color-sfpurple-100: #B89DE7;
+  --color-coolgray-10: #DFE3F2;
+  --color-coolgray-60: #757988;
+
+  /* Lime */
+  --color-lime-10: #F8FFEF;
+  --color-lime-100: #B4FA64;
+
+  /* Pink */
+  --color-pink-10: #FEF4FF;
+  --color-pink-100: #F195FF;
+
+  /* Status colors */
+  --color-succ-60: #E5F9F4;
+  --color-succ-80: #00C39A;
+  --color-succ-100: #008C6F;
+  --color-warn-60: #FFF7E8;
+  --color-warn-80: #FFB822;
+  --color-warn-100: #DE9906;
+  --color-dang-60: #FDEDF0;
+  --color-dang-80: #F4516C;
+  --color-dang-100: #9E0038;
+
+  /* Semantic aliases for sidebar */
+  --color-sidebar-dark: #002616;
+  --color-sidebar-darker: #001A0F;
+  --color-sidebar-hover: #405C50;
+
+  /* Semantic aliases for UI */
+  --color-accent-lilac: #DAC4FF;
+  --color-accent-lilac-hover: #E9DCFF;
+  --color-accent-lilac-text: #5D47FF;
+  --color-border-gray: #E8E9ED;
+  --color-text-subtle: #7B8184;
+  --color-text-primary: #232D32;
+
+  /* Box shadows */
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.03), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.03), 0 8px 10px -6px rgb(0 0 0 / 0.03);
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-DEFAULT: 6px;
+  --radius-md: 10px;
+  --radius-lg: 30px;
+}
+
+/* ── Base Styles ───────────────────────────────────────────────────────── */
+html {
+  font-feature-settings: 'liga' 0, 'clig' 0, 'dlig' 0, 'calt' 0;
 }
 
 body {
   margin: 0;
   font-family: var(--font-family-sans);
+  font-weight: 380;
+  color: var(--color-an-100);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,6 +230,6 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: var(--color-sfgray-40);
   border-radius: 3px;
 }

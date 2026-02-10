@@ -30,11 +30,11 @@ export default function RoiOutputsPanel({ action, settings }: Props) {
 
   if (!result) {
     return (
-      <div className="rounded-2xl border border-border-gray bg-white p-6">
-        <h3 className="text-base font-semibold text-text-primary mb-3">
+      <div className="rounded-md border border-border-gray bg-white p-6">
+        <h3 className="text-lg font-semibold text-an-100 mb-3">
           ROI Ergebnisse
         </h3>
-        <div className="flex items-center justify-center py-8 text-sm text-text-subtle">
+        <div className="flex items-center justify-center py-8 text-md text-an-60">
           Bitte KPI-Daten und Monetarisierung eingeben, um die Berechnung zu starten.
         </div>
       </div>
@@ -50,15 +50,15 @@ export default function RoiOutputsPanel({ action, settings }: Props) {
   }));
 
   return (
-    <div className="rounded-2xl border border-border-gray bg-white">
+    <div className="rounded-md border border-border-gray bg-white">
       <button
         onClick={() => setExpanded(!expanded)}
         className="flex w-full items-center justify-between px-6 py-4"
       >
-        <h3 className="text-base font-semibold text-text-primary">
+        <h3 className="text-lg font-semibold text-an-100">
           ROI Ergebnisse
         </h3>
-        <span className="text-text-subtle text-sm">
+        <span className="text-an-60 text-md">
           {expanded ? "Einklappen" : "Aufklappen"}
         </span>
       </button>
@@ -100,18 +100,18 @@ export default function RoiOutputsPanel({ action, settings }: Props) {
           </div>
 
           {/* Summary boxes */}
-          <div className="grid grid-cols-3 gap-3 text-sm">
-            <div className="rounded-lg bg-gray-50 p-3">
-              <span className="text-xs text-text-subtle">CAPEX Gesamt</span>
-              <p className="font-semibold text-text-primary">{formatEur(result.capexTotal)}</p>
+          <div className="grid grid-cols-3 gap-3 text-md">
+            <div className="rounded-md bg-sfgray-5 p-3">
+              <span className="text-sm text-an-60">CAPEX Gesamt</span>
+              <p className="font-semibold text-an-100">{formatEur(result.capexTotal)}</p>
             </div>
-            <div className="rounded-lg bg-gray-50 p-3">
-              <span className="text-xs text-text-subtle">Foerderung</span>
-              <p className="font-semibold text-green-700">-{formatEur(result.grantEffective)}</p>
+            <div className="rounded-md bg-sfgray-5 p-3">
+              <span className="text-sm text-an-60">Foerderung</span>
+              <p className="font-semibold text-succ-100">-{formatEur(result.grantEffective)}</p>
             </div>
-            <div className="rounded-lg bg-gray-50 p-3">
-              <span className="text-xs text-text-subtle">Netto-CAPEX</span>
-              <p className="font-semibold text-text-primary">{formatEur(result.netCapex)}</p>
+            <div className="rounded-md bg-sfgray-5 p-3">
+              <span className="text-sm text-an-60">Netto-CAPEX</span>
+              <p className="font-semibold text-an-100">{formatEur(result.netCapex)}</p>
             </div>
           </div>
 
@@ -119,21 +119,21 @@ export default function RoiOutputsPanel({ action, settings }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Cashflow Bar Chart */}
             <div>
-              <h4 className="mb-2 text-sm font-medium text-text-primary">
+              <h4 className="mb-2 text-md font-medium text-an-100">
                 Jaehrlicher Cashflow
               </h4>
               <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chartData} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#E7E7E7" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E8E9ED" />
                     <XAxis dataKey="year" tick={{ fontSize: 10 }} />
                     <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} />
                     <Tooltip
                       formatter={(value) => formatEur(Number(value ?? 0))}
                       labelFormatter={(label) => `Jahr ${label}`}
                     />
-                    <Bar dataKey="benefit" fill="#7C5CFC" name="Nutzen" radius={[2, 2, 0, 0]} />
-                    <Bar dataKey="costs" fill="#f87171" name="Kosten" radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="benefit" fill="#5D47FF" name="Nutzen" radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="costs" fill="#F4516C" name="Kosten" radius={[2, 2, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -141,24 +141,24 @@ export default function RoiOutputsPanel({ action, settings }: Props) {
 
             {/* Cumulative Line Chart */}
             <div>
-              <h4 className="mb-2 text-sm font-medium text-text-primary">
+              <h4 className="mb-2 text-md font-medium text-an-100">
                 Kumulierter Cashflow
               </h4>
               <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#E7E7E7" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E8E9ED" />
                     <XAxis dataKey="year" tick={{ fontSize: 10 }} />
                     <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} />
                     <Tooltip
                       formatter={(value) => formatEur(Number(value ?? 0))}
                       labelFormatter={(label) => `Jahr ${label}`}
                     />
-                    <ReferenceLine y={0} stroke="#999" strokeDasharray="3 3" />
+                    <ReferenceLine y={0} stroke="#A7ABAD" strokeDasharray="3 3" />
                     <Line
                       type="monotone"
                       dataKey="cumCF"
-                      stroke="#7C5CFC"
+                      stroke="#5D47FF"
                       strokeWidth={2}
                       dot={{ r: 3 }}
                       name="Kumuliert"
@@ -173,47 +173,47 @@ export default function RoiOutputsPanel({ action, settings }: Props) {
           <div>
             <button
               onClick={() => setShowTable(!showTable)}
-              className="text-sm text-accent-lilac-text hover:underline"
+              className="text-md text-blue-100 hover:underline"
             >
               {showTable ? "Tabelle ausblenden" : "Detailtabelle anzeigen"}
             </button>
 
             {showTable && (
-              <div className="mt-3 overflow-x-auto rounded-lg border border-border-gray">
-                <table className="w-full text-xs">
+              <div className="mt-3 overflow-x-auto rounded-md border border-border-gray">
+                <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-gray-50/70 border-b border-border-gray">
-                      <th className="px-2 py-1.5 text-left font-medium text-text-subtle">Jahr</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">Go-Live</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">KPI Red.</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">EUR/Einh.</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">Nutzen</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">OPEX</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">AfA</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">EBIT</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">Steuern</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">Netto-CF</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">Disk. CF</th>
-                      <th className="px-2 py-1.5 text-right font-medium text-text-subtle">Kumuliert</th>
+                    <tr className="bg-sfgray-5 border-b border-border-gray">
+                      <th className="px-2 py-1.5 text-left font-medium text-an-60">Jahr</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">Go-Live</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">KPI Red.</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">EUR/Einh.</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">Nutzen</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">OPEX</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">AfA</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">EBIT</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">Steuern</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">Netto-CF</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">Disk. CF</th>
+                      <th className="px-2 py-1.5 text-right font-medium text-an-60">Kumuliert</th>
                     </tr>
                   </thead>
                   <tbody>
                     {result.years.map((r) => (
-                      <tr key={r.t} className="border-b border-border-gray last:border-b-0 hover:bg-gray-50/50">
+                      <tr key={r.t} className="border-b border-border-gray last:border-b-0 hover:bg-sfgray-5">
                         <td className="px-2 py-1 font-mono">{r.year}</td>
                         <td className="px-2 py-1 text-right font-mono">{(r.goLiveFactor * 100).toFixed(0)}%</td>
                         <td className="px-2 py-1 text-right font-mono">{formatNumber(r.kpiReduction)}</td>
                         <td className="px-2 py-1 text-right font-mono">{r.eurPerUnit.toFixed(2)}</td>
-                        <td className="px-2 py-1 text-right font-mono text-green-700">{formatNumber(r.totalBenefit)}</td>
-                        <td className="px-2 py-1 text-right font-mono text-red-600">{formatNumber(r.opex)}</td>
+                        <td className="px-2 py-1 text-right font-mono text-succ-100">{formatNumber(r.totalBenefit)}</td>
+                        <td className="px-2 py-1 text-right font-mono text-dang-80">{formatNumber(r.opex)}</td>
                         <td className="px-2 py-1 text-right font-mono">{formatNumber(r.depreciation)}</td>
                         <td className="px-2 py-1 text-right font-mono">{formatNumber(r.ebit)}</td>
-                        <td className="px-2 py-1 text-right font-mono text-red-600">{formatNumber(r.taxes)}</td>
-                        <td className={`px-2 py-1 text-right font-mono font-medium ${r.netCashflow >= 0 ? "text-green-700" : "text-red-600"}`}>
+                        <td className="px-2 py-1 text-right font-mono text-dang-80">{formatNumber(r.taxes)}</td>
+                        <td className={`px-2 py-1 text-right font-mono font-medium ${r.netCashflow >= 0 ? "text-succ-100" : "text-dang-80"}`}>
                           {formatNumber(r.netCashflow)}
                         </td>
                         <td className="px-2 py-1 text-right font-mono">{formatNumber(r.discountedCF)}</td>
-                        <td className={`px-2 py-1 text-right font-mono font-medium ${r.cumulativeCF >= 0 ? "text-green-700" : "text-red-600"}`}>
+                        <td className={`px-2 py-1 text-right font-mono font-medium ${r.cumulativeCF >= 0 ? "text-succ-100" : "text-dang-80"}`}>
                           {formatNumber(r.cumulativeCF)}
                         </td>
                       </tr>
@@ -241,25 +241,25 @@ function Tile({
   tooltip: string;
 }) {
   const bgMap = {
-    green: "bg-green-50 border-green-200",
-    red: "bg-red-50 border-red-200",
-    orange: "bg-orange-50 border-orange-200",
-    neutral: "bg-gray-50 border-border-gray",
+    green: "bg-succ-60 border-sfgreen-40",
+    red: "bg-dang-60 border-red-10",
+    orange: "bg-warn-60 border-morningsun-40",
+    neutral: "bg-sfgray-5 border-border-gray",
   };
   const textMap = {
-    green: "text-green-700",
-    red: "text-red-700",
-    orange: "text-orange-700",
-    neutral: "text-text-primary",
+    green: "text-succ-100",
+    red: "text-dang-100",
+    orange: "text-warn-100",
+    neutral: "text-an-100",
   };
 
   return (
     <div
-      className={`rounded-lg border p-3 ${bgMap[color]}`}
+      className={`rounded-md border p-3 ${bgMap[color]}`}
       title={tooltip}
     >
-      <span className="text-[11px] font-medium text-text-subtle">{label}</span>
-      <p className={`mt-0.5 text-lg font-bold ${textMap[color]}`}>{value}</p>
+      <span className="text-sm font-medium text-an-60">{label}</span>
+      <p className={`mt-0.5 text-xl font-bold ${textMap[color]}`}>{value}</p>
     </div>
   );
 }

@@ -25,9 +25,9 @@ const STATUS_LABELS: Record<ActionStatus, string> = {
 };
 
 const STATUS_COLORS: Record<ActionStatus, { bg: string; dot: string }> = {
-  OFFEN: { bg: "bg-orange-50", dot: "bg-orange-400" },
-  IN_PROGRESS: { bg: "bg-blue-50", dot: "bg-blue-400" },
-  DONE: { bg: "bg-green-50", dot: "bg-green-400" },
+  OFFEN: { bg: "bg-warn-60", dot: "bg-warn-80" },
+  IN_PROGRESS: { bg: "bg-blue-10", dot: "bg-blue-100" },
+  DONE: { bg: "bg-succ-60", dot: "bg-succ-80" },
 };
 
 const STATUS_ORDER: ActionStatus[] = ["OFFEN", "IN_PROGRESS", "DONE"];
@@ -155,7 +155,6 @@ export default function ActionsOverview() {
     setDraggedActionId(actionId);
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/plain", actionId);
-    // Make the drag image slightly transparent
     if (e.currentTarget instanceof HTMLElement) {
       e.currentTarget.style.opacity = "0.5";
     }
@@ -176,7 +175,6 @@ export default function ActionsOverview() {
   }
 
   function handleDragLeave(e: React.DragEvent, status: ActionStatus) {
-    // Only clear if we're actually leaving the column (not entering a child)
     const relatedTarget = e.relatedTarget as Node | null;
     if (
       e.currentTarget instanceof HTMLElement &&
@@ -207,7 +205,6 @@ export default function ActionsOverview() {
       await updateAction(actionId, { status: newStatus });
     } catch (err) {
       console.error("Failed to update status:", err);
-      // Revert on error
       loadActions();
     }
   }
@@ -222,7 +219,7 @@ export default function ActionsOverview() {
           { label: "Aktionen" },
         ]}
       />
-      <h1 className="mt-2 text-xl font-semibold text-text-primary">
+      <h1 className="mt-2 text-xl font-semibold text-an-100">
         Aktionen
       </h1>
 
@@ -233,16 +230,16 @@ export default function ActionsOverview() {
           <div className="relative" ref={filterRef}>
             <button
               onClick={() => setShowFilterPanel(!showFilterPanel)}
-              className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors ${
+              className={`flex items-center gap-2 rounded-md border px-3 py-2 text-md transition-colors ${
                 showFilterPanel || activeFilterCount > 0
-                  ? "border-accent-lilac-text bg-accent-lilac/10 text-accent-lilac-text"
-                  : "border-border-gray text-text-subtle hover:bg-gray-50"
+                  ? "border-blue-100 bg-lilac-10 text-blue-100"
+                  : "border-border-gray text-an-60 hover:bg-sfgray-5"
               }`}
             >
               <Filter size={15} />
               <span>Filter</span>
               {activeFilterCount > 0 && (
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent-lilac-text text-[10px] font-medium text-white">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 text-xs font-medium text-white">
                   {activeFilterCount}
                 </span>
               )}
@@ -250,24 +247,24 @@ export default function ActionsOverview() {
 
             {/* Filter Panel */}
             {showFilterPanel && (
-              <div className="absolute left-0 top-full z-20 mt-2 w-80 rounded-xl border border-border-gray bg-white p-4 shadow-lg">
+              <div className="absolute left-0 top-full z-20 mt-2 w-80 rounded-md border border-border-gray bg-white p-4 shadow-lg">
                 {/* Search */}
                 <div className="relative mb-4">
                   <Search
                     size={15}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-text-subtle"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-an-60"
                   />
                   <input
                     type="text"
                     placeholder="Suchen..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full rounded-lg border border-border-gray py-2 pl-9 pr-8 text-sm outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+                    className="w-full rounded-md border border-border-gray py-2 pl-9 pr-8 text-md outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-text-subtle hover:text-text-primary"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-an-60 hover:text-an-100"
                     >
                       <X size={14} />
                     </button>
@@ -276,7 +273,7 @@ export default function ActionsOverview() {
 
                 {/* Status Filter */}
                 <div className="mb-4">
-                  <label className="mb-2 block text-xs font-medium text-text-subtle uppercase tracking-wider">
+                  <label className="mb-2 block text-sm font-medium text-an-60 uppercase tracking-wider">
                     Status
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -284,10 +281,10 @@ export default function ActionsOverview() {
                       <button
                         key={status}
                         onClick={() => toggleStatusFilter(status)}
-                        className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                        className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
                           statusFilter.includes(status)
-                            ? "bg-accent-lilac text-accent-lilac-text"
-                            : "bg-gray-100 text-text-subtle hover:bg-gray-200"
+                            ? "bg-lilac-100 text-blue-100"
+                            : "bg-sfgray-10 text-an-60 hover:bg-sfgray-20"
                         }`}
                       >
                         {STATUS_LABELS[status]}
@@ -298,13 +295,13 @@ export default function ActionsOverview() {
 
                 {/* Sort */}
                 <div>
-                  <label className="mb-2 block text-xs font-medium text-text-subtle uppercase tracking-wider">
+                  <label className="mb-2 block text-sm font-medium text-an-60 uppercase tracking-wider">
                     Sortierung
                   </label>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full rounded-lg border border-border-gray px-3 py-2 text-sm outline-none focus:border-accent-lilac-text"
+                    className="w-full rounded-md border border-border-gray px-3 py-2 text-md outline-none focus:border-blue-100"
                   >
                     {SORT_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -318,30 +315,30 @@ export default function ActionsOverview() {
           </div>
 
           {/* Count */}
-          <span className="text-sm text-text-subtle">
+          <span className="text-md text-an-60">
             {actions.length} / {actions.length}
           </span>
         </div>
 
         <div className="flex items-center gap-3">
           {/* View Toggle */}
-          <div className="flex rounded-lg border border-border-gray">
+          <div className="flex rounded-md border border-border-gray">
             <button
               onClick={() => setViewMode("list")}
-              className={`rounded-l-lg p-2 transition-colors ${
+              className={`rounded-l-md p-2 transition-colors ${
                 viewMode === "list"
-                  ? "bg-accent-lilac text-accent-lilac-text"
-                  : "text-text-subtle hover:bg-gray-50"
+                  ? "bg-lilac-100 text-blue-100"
+                  : "text-an-60 hover:bg-sfgray-5"
               }`}
             >
               <List size={16} />
             </button>
             <button
               onClick={() => setViewMode("kanban")}
-              className={`rounded-r-lg p-2 transition-colors ${
+              className={`rounded-r-md p-2 transition-colors ${
                 viewMode === "kanban"
-                  ? "bg-accent-lilac text-accent-lilac-text"
-                  : "text-text-subtle hover:bg-gray-50"
+                  ? "bg-lilac-100 text-blue-100"
+                  : "text-an-60 hover:bg-sfgray-5"
               }`}
             >
               <Columns3 size={16} />
@@ -352,16 +349,16 @@ export default function ActionsOverview() {
           <div className="relative" ref={configRef}>
             <button
               onClick={() => setShowConfigPopover(!showConfigPopover)}
-              className="flex items-center gap-2 rounded-lg border border-border-gray px-3 py-2 text-sm text-text-subtle hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 rounded-md border border-border-gray px-3 py-2 text-md text-an-60 hover:bg-sfgray-5 transition-colors"
             >
               <Settings2 size={15} />
               <span>Konfigurieren</span>
             </button>
 
             {showConfigPopover && (
-              <div className="absolute right-0 top-full z-20 mt-2 w-64 rounded-xl border border-border-gray bg-white p-4 shadow-lg">
+              <div className="absolute right-0 top-full z-20 mt-2 w-64 rounded-md border border-border-gray bg-white p-4 shadow-lg">
                 <label className="flex items-center justify-between py-2">
-                  <span className="text-sm text-text-primary">
+                  <span className="text-md text-an-100">
                     Gruppiert nach Status
                   </span>
                   <ToggleSwitch
@@ -370,7 +367,7 @@ export default function ActionsOverview() {
                   />
                 </label>
                 <label className="flex items-center justify-between py-2">
-                  <span className="text-sm text-text-primary">
+                  <span className="text-md text-an-100">
                     Verantwortliche anzeigen
                   </span>
                   <ToggleSwitch
@@ -379,7 +376,7 @@ export default function ActionsOverview() {
                   />
                 </label>
                 <label className="flex items-center justify-between py-2">
-                  <span className="text-sm text-text-primary">
+                  <span className="text-md text-an-100">
                     Daten anzeigen
                   </span>
                   <ToggleSwitch
@@ -395,7 +392,7 @@ export default function ActionsOverview() {
 
       {/* Group label (list only) */}
       {groupByStatus && viewMode === "list" && (
-        <div className="mt-4 text-sm text-text-primary">
+        <div className="mt-4 text-md text-an-100">
           <span className="font-semibold">Gruppiert</span> nach:{" "}
           <span className="font-semibold">Status</span>
         </div>
@@ -405,7 +402,7 @@ export default function ActionsOverview() {
       <div className="mt-4 flex justify-end">
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 rounded-xl border-2 border-text-primary bg-white px-5 py-2.5 text-sm font-semibold text-text-primary hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-2 rounded-md border-2 border-an-100 bg-white px-5 py-2.5 text-md font-semibold text-an-100 hover:bg-sfgray-5 transition-colors"
         >
           <Plus size={18} strokeWidth={2} />
           Neue Aktion erstellen
@@ -415,7 +412,7 @@ export default function ActionsOverview() {
       {/* Loading */}
       {loading && (
         <div className="mt-8 flex justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent-lilac-text border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-100 border-t-transparent" />
         </div>
       )}
 
@@ -435,10 +432,10 @@ export default function ActionsOverview() {
             return (
               <div
                 key={status}
-                className={`flex w-80 shrink-0 flex-col rounded-xl border-2 transition-colors ${
+                className={`flex w-80 shrink-0 flex-col rounded-md border-2 transition-colors ${
                   isDropTarget && isDraggingFromOther
-                    ? "border-accent-lilac-text bg-accent-lilac/5"
-                    : "border-border-gray bg-gray-50/70"
+                    ? "border-blue-100 bg-lilac-10"
+                    : "border-border-gray bg-sfgray-5"
                 }`}
                 onDragOver={(e) => handleDragOver(e, status)}
                 onDragLeave={(e) => handleDragLeave(e, status)}
@@ -449,10 +446,10 @@ export default function ActionsOverview() {
                   <span
                     className={`h-2.5 w-2.5 rounded-full ${colors.dot}`}
                   />
-                  <span className="text-sm font-semibold text-text-primary">
+                  <span className="text-md font-semibold text-an-100">
                     {STATUS_LABELS[status]}
                   </span>
-                  <span className="ml-auto rounded-full bg-white px-2 py-0.5 text-xs font-medium text-text-subtle border border-border-gray">
+                  <span className="ml-auto rounded-full bg-white px-2 py-0.5 text-sm font-medium text-an-60 border border-border-gray">
                     {group.length}
                   </span>
                 </div>
@@ -460,13 +457,13 @@ export default function ActionsOverview() {
                 {/* Cards */}
                 <div className="flex-1 space-y-2 overflow-y-auto p-3 min-h-[120px]">
                   {group.length === 0 && !isDropTarget && (
-                    <p className="py-8 text-center text-xs text-text-subtle">
+                    <p className="py-8 text-center text-sm text-an-60">
                       Keine Aktionen
                     </p>
                   )}
                   {group.length === 0 && isDropTarget && isDraggingFromOther && (
-                    <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-accent-lilac-text/40 py-8">
-                      <p className="text-xs text-accent-lilac-text">
+                    <div className="flex items-center justify-center rounded-md border-2 border-dashed border-blue-100/40 py-8">
+                      <p className="text-sm text-blue-100">
                         Hier ablegen
                       </p>
                     </div>
@@ -502,9 +499,9 @@ export default function ActionsOverview() {
             if (group.length === 0) return null;
             return (
               <div key={status}>
-                <h3 className="mb-3 text-sm font-semibold text-text-primary">
+                <h3 className="mb-3 text-md font-semibold text-an-100">
                   {STATUS_LABELS[status]}{" "}
-                  <span className="ml-1 font-normal text-accent-lilac-text">
+                  <span className="ml-1 font-normal text-blue-100">
                     {group.length}
                   </span>
                 </h3>
@@ -544,8 +541,8 @@ export default function ActionsOverview() {
       ) : null}
 
       {!loading && actions.length === 0 && (
-        <div className="mt-12 flex flex-col items-center justify-center text-text-subtle">
-          <p className="text-sm">Keine Aktionen gefunden.</p>
+        <div className="mt-12 flex flex-col items-center justify-center text-an-60">
+          <p className="text-md">Keine Aktionen gefunden.</p>
         </div>
       )}
 
@@ -580,15 +577,15 @@ function ActionCard({
   return (
     <div
       onClick={onClick}
-      className="flex cursor-pointer items-center justify-between rounded-xl border border-border-gray bg-white px-5 py-4 hover:shadow-sm hover:border-gray-300 transition-all"
+      className="flex cursor-pointer items-center justify-between rounded-md border border-border-gray bg-white px-5 py-4 hover:shadow-lg hover:border-an-20 transition-all"
     >
       {/* Left */}
       <div className="min-w-0 flex-1 pr-4">
-        <h4 className="text-sm font-semibold text-text-primary">
+        <h4 className="text-md font-semibold text-an-100">
           {action.title}
         </h4>
         {action.description && (
-          <p className="mt-0.5 truncate text-sm text-text-subtle">
+          <p className="mt-0.5 truncate text-md text-an-60">
             {action.description}
           </p>
         )}
@@ -597,10 +594,10 @@ function ActionCard({
       {/* Right pills */}
       <div className="flex shrink-0 items-center gap-3">
         {showAssignee && (
-          <span className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-xs text-text-subtle">
+          <span className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-sm text-an-60">
             {action.assignee ? (
               <>
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sidebar-dark text-[9px] font-medium text-white">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-darkgreen-100 text-[9px] font-medium text-white">
                   {action.assignee.initials}
                 </span>
                 {action.assignee.name}
@@ -614,13 +611,13 @@ function ActionCard({
           </span>
         )}
         {showDates && action.startDate && (
-          <span className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-xs text-text-subtle">
+          <span className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-sm text-an-60">
             <Play size={10} fill="currentColor" />
             {formatDate(action.startDate)}
           </span>
         )}
         {showDates && action.dueDate && (
-          <span className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-xs text-text-subtle">
+          <span className="flex items-center gap-1.5 rounded-full border border-border-gray px-3 py-1 text-sm text-an-60">
             <Clock size={10} />
             {formatDate(action.dueDate)}
           </span>
@@ -655,22 +652,22 @@ function KanbanCard({
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       onClick={onClick}
-      className={`group cursor-grab rounded-lg border bg-white p-3.5 transition-all active:cursor-grabbing ${
+      className={`group cursor-grab rounded-md border bg-white p-3.5 transition-all active:cursor-grabbing ${
         isDragging
-          ? "border-accent-lilac-text shadow-md opacity-50"
-          : "border-border-gray hover:shadow-sm hover:border-gray-300"
+          ? "border-blue-100 shadow-lg opacity-50"
+          : "border-border-gray hover:shadow-lg hover:border-an-20"
       }`}
     >
       <div className="flex items-start gap-2">
-        <div className="mt-0.5 shrink-0 text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="mt-0.5 shrink-0 text-an-20 opacity-0 group-hover:opacity-100 transition-opacity">
           <GripVertical size={14} />
         </div>
         <div className="min-w-0 flex-1">
-          <h4 className="text-sm font-semibold text-text-primary leading-snug">
+          <h4 className="text-md font-semibold text-an-100 leading-snug">
             {action.title}
           </h4>
           {action.description && (
-            <p className="mt-1 text-xs text-text-subtle line-clamp-2">
+            <p className="mt-1 text-sm text-an-60 line-clamp-2">
               {action.description}
             </p>
           )}
@@ -678,15 +675,15 @@ function KanbanCard({
           {/* Meta row */}
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {showAssignee && action.assignee && (
-              <span className="flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-[11px] text-text-subtle">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-sidebar-dark text-[8px] font-medium text-white">
+              <span className="flex items-center gap-1 rounded-full bg-sfgray-10 px-2 py-0.5 text-sm text-an-60">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-darkgreen-100 text-[8px] font-medium text-white">
                   {action.assignee.initials}
                 </span>
                 {action.assignee.name.split(" ")[0]}
               </span>
             )}
             {showDates && action.dueDate && (
-              <span className="flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-[11px] text-text-subtle">
+              <span className="flex items-center gap-1 rounded-full bg-sfgray-10 px-2 py-0.5 text-sm text-an-60">
                 <Clock size={9} />
                 {formatDate(action.dueDate)}
               </span>
@@ -711,7 +708,7 @@ function ToggleSwitch({
     <button
       onClick={() => onChange(!checked)}
       className={`relative h-5 w-9 rounded-full transition-colors ${
-        checked ? "bg-accent-lilac-text" : "bg-gray-300"
+        checked ? "bg-blue-100" : "bg-an-20"
       }`}
     >
       <span

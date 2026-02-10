@@ -87,7 +87,7 @@ export default function VariableDetail() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent-lilac-text border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-100 border-t-transparent" />
       </div>
     );
   }
@@ -95,7 +95,7 @@ export default function VariableDetail() {
   if (!variable) {
     return (
       <div className="p-6">
-        <p className="text-text-subtle">Variable nicht gefunden.</p>
+        <p className="text-an-60">Variable nicht gefunden.</p>
       </div>
     );
   }
@@ -134,31 +134,31 @@ export default function VariableDetail() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/strategy/esg-hub/variables")}
-            className="rounded-lg p-2 hover:bg-gray-100 transition-colors"
+            className="rounded-md p-2 hover:bg-sfgray-10 transition-colors"
           >
-            <ArrowLeft size={18} className="text-text-subtle" />
+            <ArrowLeft size={18} className="text-an-60" />
           </button>
-          <h1 className="text-xl font-semibold text-text-primary">
+          <h1 className="text-xl font-semibold text-an-100">
             Variable bearbeiten
           </h1>
         </div>
         <button
           onClick={handleDelete}
-          className="rounded-lg p-2 hover:bg-red-50 transition-colors"
+          className="rounded-md p-2 hover:bg-dang-60 transition-colors"
           title="Loeschen"
         >
-          <Trash2 size={18} className="text-text-subtle hover:text-red-500" />
+          <Trash2 size={18} className="text-an-60 hover:text-dang-80" />
         </button>
       </div>
 
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Form */}
-        <div className="rounded-2xl border border-border-gray bg-white p-6">
+        <div className="rounded-md border border-border-gray bg-white p-6">
           <div className="space-y-4">
             {/* Name */}
             <div>
-              <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
-                Name <span className="text-red-400">*</span>
+              <label className="mb-1 block text-sm font-medium text-blue-100">
+                Name <span className="text-dang-80">*</span>
               </label>
               <input
                 value={variable.name}
@@ -166,13 +166,13 @@ export default function VariableDetail() {
                   setVariable({ ...variable, name: e.target.value });
                   debouncedSave("name", e.target.value);
                 }}
-                className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm font-semibold text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+                className="w-full rounded-md border border-border-gray px-4 py-3 text-md font-semibold text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
               />
             </div>
 
             {/* Description */}
             <div>
-              <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+              <label className="mb-1 block text-sm font-medium text-blue-100">
                 Beschreibung
               </label>
               <textarea
@@ -182,13 +182,13 @@ export default function VariableDetail() {
                   debouncedSave("description", e.target.value);
                 }}
                 rows={2}
-                className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac resize-y"
+                className="w-full rounded-md border border-border-gray px-4 py-3 text-md text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100 resize-y"
               />
             </div>
 
             {/* Unit */}
             <div>
-              <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+              <label className="mb-1 block text-sm font-medium text-blue-100">
                 Einheit
               </label>
               <input
@@ -198,23 +198,23 @@ export default function VariableDetail() {
                   debouncedSave("unit", e.target.value);
                 }}
                 placeholder="z.B. EUR/kWh"
-                className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+                className="w-full rounded-md border border-border-gray px-4 py-3 text-md text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
               />
             </div>
 
             {/* Method */}
             <div>
-              <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+              <label className="mb-1 block text-sm font-medium text-blue-100">
                 Methode
               </label>
               <div className="space-y-2">
                 {METHOD_OPTIONS.map((opt) => (
                   <label
                     key={opt.value}
-                    className={`flex items-start gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
+                    className={`flex items-start gap-3 rounded-md border p-3 cursor-pointer transition-colors ${
                       variable.method === opt.value
-                        ? "border-accent-lilac-text bg-accent-lilac/5"
-                        : "border-border-gray hover:bg-gray-50"
+                        ? "border-blue-100 bg-lilac-10"
+                        : "border-border-gray hover:bg-sfgray-5"
                     }`}
                   >
                     <input
@@ -226,13 +226,13 @@ export default function VariableDetail() {
                         setVariable({ ...variable, method: opt.value as "fix" | "cagr" | "manual" });
                         immediateSave("method", opt.value);
                       }}
-                      className="mt-0.5 accent-accent-lilac-text"
+                      className="mt-0.5 accent-blue-100"
                     />
                     <div>
-                      <span className="text-sm font-medium text-text-primary">
+                      <span className="text-md font-medium text-an-100">
                         {opt.label}
                       </span>
-                      <p className="text-xs text-text-subtle">{opt.desc}</p>
+                      <p className="text-sm text-an-60">{opt.desc}</p>
                     </div>
                   </label>
                 ))}
@@ -242,7 +242,7 @@ export default function VariableDetail() {
             {/* Start Year + Horizon */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+                <label className="mb-1 block text-sm font-medium text-blue-100">
                   Startjahr
                 </label>
                 <input
@@ -253,11 +253,11 @@ export default function VariableDetail() {
                     setVariable({ ...variable, startYear: val });
                     debouncedSave("startYear", val);
                   }}
-                  className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+                  className="w-full rounded-md border border-border-gray px-4 py-3 text-md text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+                <label className="mb-1 block text-sm font-medium text-blue-100">
                   Horizont (Jahre)
                 </label>
                 <input
@@ -270,14 +270,14 @@ export default function VariableDetail() {
                     setVariable({ ...variable, horizonYears: val });
                     debouncedSave("horizonYears", val);
                   }}
-                  className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+                  className="w-full rounded-md border border-border-gray px-4 py-3 text-md text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
                 />
               </div>
             </div>
 
             {/* Start Value */}
             <div>
-              <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+              <label className="mb-1 block text-sm font-medium text-blue-100">
                 Startwert
               </label>
               <input
@@ -289,14 +289,14 @@ export default function VariableDetail() {
                   setVariable({ ...variable, startValue: val });
                   debouncedSave("startValue", val);
                 }}
-                className="w-full rounded-lg border border-border-gray px-4 py-3 text-sm text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+                className="w-full rounded-md border border-border-gray px-4 py-3 text-md text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
               />
             </div>
 
             {/* CAGR (only for cagr method) */}
             {variable.method === "cagr" && (
               <div>
-                <label className="mb-1 block text-xs font-medium text-accent-lilac-text">
+                <label className="mb-1 block text-sm font-medium text-blue-100">
                   CAGR (jaehrliche Wachstumsrate)
                 </label>
                 <div className="relative">
@@ -309,9 +309,9 @@ export default function VariableDetail() {
                       setVariable({ ...variable, cagr: val });
                       debouncedSave("cagr", val);
                     }}
-                    className="w-full rounded-lg border border-border-gray px-4 py-3 pr-12 text-sm text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+                    className="w-full rounded-md border border-border-gray px-4 py-3 pr-12 text-md text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-text-subtle">
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-md text-an-60">
                     ({(variable.cagr * 100).toFixed(1)}%)
                   </span>
                 </div>
@@ -321,13 +321,13 @@ export default function VariableDetail() {
             {/* Manual values */}
             {variable.method === "manual" && (
               <div>
-                <label className="mb-2 block text-xs font-medium text-accent-lilac-text">
+                <label className="mb-2 block text-sm font-medium text-blue-100">
                   Werte pro Jahr
                 </label>
                 <div className="space-y-1.5 max-h-60 overflow-y-auto">
                   {previewYears.map(({ year }) => (
                     <div key={year} className="flex items-center gap-2">
-                      <span className="w-12 text-xs font-mono text-text-subtle">
+                      <span className="w-12 text-sm font-mono text-an-60">
                         {year}
                       </span>
                       <input
@@ -337,9 +337,9 @@ export default function VariableDetail() {
                         onChange={(e) =>
                           updateManualValue(year, parseFloat(e.target.value) || 0)
                         }
-                        className="flex-1 rounded border border-border-gray px-2 py-1 text-sm font-mono text-text-primary outline-none focus:border-accent-lilac-text"
+                        className="flex-1 rounded border border-border-gray px-2 py-1 text-md font-mono text-an-100 outline-none focus:border-blue-100"
                       />
-                      <span className="text-xs text-text-subtle">
+                      <span className="text-sm text-an-60">
                         {variable.unit}
                       </span>
                     </div>
@@ -351,18 +351,18 @@ export default function VariableDetail() {
         </div>
 
         {/* Right: Preview Table */}
-        <div className="rounded-2xl border border-border-gray bg-white p-6">
-          <h3 className="mb-4 text-base font-semibold text-text-primary">
+        <div className="rounded-md border border-border-gray bg-white p-6">
+          <h3 className="mb-4 text-lg font-semibold text-an-100">
             Vorschau: Werte ueber Zeit
           </h3>
-          <div className="overflow-hidden rounded-lg border border-border-gray">
+          <div className="overflow-hidden rounded-md border border-border-gray">
             <table className="w-full">
               <thead>
-                <tr className="bg-gray-50/70 border-b border-border-gray">
-                  <th className="px-3 py-2 text-left text-xs font-medium text-text-subtle">
+                <tr className="bg-sfgray-5 border-b border-border-gray">
+                  <th className="px-3 py-2 text-left text-sm font-medium text-an-60">
                     Jahr
                   </th>
-                  <th className="px-3 py-2 text-right text-xs font-medium text-text-subtle">
+                  <th className="px-3 py-2 text-right text-sm font-medium text-an-60">
                     Wert ({variable.unit})
                   </th>
                 </tr>
@@ -373,10 +373,10 @@ export default function VariableDetail() {
                     key={year}
                     className="border-b border-border-gray last:border-b-0"
                   >
-                    <td className="px-3 py-2 text-sm font-mono text-text-primary">
+                    <td className="px-3 py-2 text-md font-mono text-an-100">
                       {year}
                     </td>
-                    <td className="px-3 py-2 text-right text-sm font-mono text-text-primary">
+                    <td className="px-3 py-2 text-right text-md font-mono text-an-100">
                       {value < 1 ? value.toFixed(4) : value.toFixed(2)}
                     </td>
                   </tr>
@@ -387,7 +387,7 @@ export default function VariableDetail() {
 
           {/* Simple bar visualization */}
           <div className="mt-4">
-            <h4 className="mb-2 text-xs font-medium text-text-subtle">
+            <h4 className="mb-2 text-sm font-medium text-an-60">
               Verlauf
             </h4>
             <div className="flex items-end gap-1 h-24">
@@ -397,7 +397,7 @@ export default function VariableDetail() {
                 return (
                   <div
                     key={year}
-                    className="flex-1 bg-accent-lilac hover:bg-accent-lilac-text/30 rounded-t transition-colors"
+                    className="flex-1 bg-lilac-100 hover:bg-blue-100/30 rounded-t transition-colors"
                     style={{ height: `${Math.max(height, 2)}%` }}
                     title={`${year}: ${value.toFixed(2)} ${variable.unit}`}
                   />
@@ -410,7 +410,7 @@ export default function VariableDetail() {
                 .map(({ year }) => (
                   <div
                     key={year}
-                    className="flex-1 text-center text-[9px] text-text-subtle"
+                    className="flex-1 text-center text-[9px] text-an-60"
                     style={{ flex: 2 }}
                   >
                     {year}
@@ -422,7 +422,7 @@ export default function VariableDetail() {
       </div>
 
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 rounded-lg bg-sidebar-dark px-4 py-2 text-sm text-white shadow-lg">
+        <div className="fixed bottom-6 right-6 z-50 rounded-md bg-darkgreen-100 px-4 py-2 text-md text-white shadow-lg">
           {toast}
         </div>
       )}

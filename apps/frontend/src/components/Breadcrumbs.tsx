@@ -10,14 +10,14 @@ export default function Breadcrumbs({ segments }: { segments: Segment[] }) {
   const navigate = useNavigate();
 
   return (
-    <nav className="flex items-center gap-1 text-sm text-text-subtle">
+    <nav className="flex items-center gap-1 text-md text-an-60">
       {segments.map((seg, i) => (
         <span key={i} className="flex items-center gap-1">
-          {i > 0 && <ChevronRight size={14} className="text-text-subtle/50" />}
+          {i > 0 && <ChevronRight size={14} className="text-an-40" />}
           {seg.path ? (
             <button
               onClick={() => navigate(seg.path!)}
-              className="hover:text-text-primary transition-colors"
+              className="hover:text-an-100 transition-colors"
             >
               {seg.label}
             </button>
@@ -25,7 +25,7 @@ export default function Breadcrumbs({ segments }: { segments: Segment[] }) {
             <span
               className={
                 i === segments.length - 1
-                  ? "font-semibold text-text-primary"
+                  ? "font-semibold text-an-100"
                   : ""
               }
             >

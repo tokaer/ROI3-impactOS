@@ -38,7 +38,7 @@ function NumField({
 
   return (
     <div>
-      <label className="mb-0.5 block text-[11px] font-medium text-text-subtle">
+      <label className="mb-0.5 block text-sm font-medium text-an-60">
         {label}
       </label>
       <div className="relative">
@@ -48,10 +48,10 @@ function NumField({
           value={local}
           onChange={handleChange}
           placeholder="--"
-          className="w-full rounded border border-border-gray px-2 py-1.5 text-sm font-mono text-text-primary outline-none focus:border-accent-lilac-text focus:ring-1 focus:ring-accent-lilac"
+          className="w-full rounded border border-border-gray px-2 py-1.5 text-md font-mono text-an-100 outline-none focus:border-blue-100 focus:ring-1 focus:ring-lilac-100"
         />
         {suffix && (
-          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-text-subtle">
+          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-an-60">
             {suffix}
           </span>
         )}
@@ -81,15 +81,15 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
   );
 
   return (
-    <div className="rounded-2xl border border-border-gray bg-white">
+    <div className="rounded-md border border-border-gray bg-white">
       <button
         onClick={() => setExpanded(!expanded)}
         className="flex w-full items-center justify-between px-6 py-4"
       >
-        <h3 className="text-base font-semibold text-text-primary">
+        <h3 className="text-lg font-semibold text-an-100">
           ROI Eingaben
         </h3>
-        <span className="text-text-subtle text-sm">
+        <span className="text-an-60 text-md">
           {expanded ? "Einklappen" : "Aufklappen"}
         </span>
       </button>
@@ -98,12 +98,12 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
         <div className="px-6 pb-6 space-y-6">
           {/* KPI Section */}
           <section>
-            <h4 className="mb-3 text-sm font-semibold text-accent-lilac-text border-b border-border-gray pb-2">
+            <h4 className="mb-3 text-md font-semibold text-blue-100 border-b border-border-gray pb-2">
               KPI / Wirkung
             </h4>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="mb-0.5 block text-[11px] font-medium text-text-subtle">
+                <label className="mb-0.5 block text-sm font-medium text-an-60">
                   KPI Name
                 </label>
                 <input
@@ -113,11 +113,11 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
                     save("kpiName", e.target.value || null);
                   }}
                   placeholder="z.B. Stromverbrauch"
-                  className="w-full rounded border border-border-gray px-2 py-1.5 text-sm text-text-primary outline-none focus:border-accent-lilac-text"
+                  className="w-full rounded border border-border-gray px-2 py-1.5 text-md text-an-100 outline-none focus:border-blue-100"
                 />
               </div>
               <div>
-                <label className="mb-0.5 block text-[11px] font-medium text-text-subtle">
+                <label className="mb-0.5 block text-sm font-medium text-an-60">
                   KPI Einheit
                 </label>
                 <input
@@ -127,7 +127,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
                     save("kpiUnit", e.target.value || null);
                   }}
                   placeholder="z.B. kWh/Jahr"
-                  className="w-full rounded border border-border-gray px-2 py-1.5 text-sm text-text-primary outline-none focus:border-accent-lilac-text"
+                  className="w-full rounded border border-border-gray px-2 py-1.5 text-md text-an-100 outline-none focus:border-blue-100"
                 />
               </div>
               <NumField
@@ -137,7 +137,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
                 onSave={save}
               />
               <div>
-                <label className="mb-0.5 block text-[11px] font-medium text-text-subtle">
+                <label className="mb-0.5 block text-sm font-medium text-an-60">
                   Wirkungstyp
                 </label>
                 <select
@@ -146,7 +146,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
                     onUpdate({ ...action, impactType: e.target.value || null });
                     save("impactType", e.target.value || null);
                   }}
-                  className="w-full rounded border border-border-gray px-2 py-1.5 text-sm text-text-primary outline-none focus:border-accent-lilac-text"
+                  className="w-full rounded border border-border-gray px-2 py-1.5 text-md text-an-100 outline-none focus:border-blue-100"
                 >
                   <option value="">-- waehlen --</option>
                   <option value="reduction_percent">Reduktion (%)</option>
@@ -165,7 +165,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
 
           {/* Monetization Section */}
           <section>
-            <h4 className="mb-3 text-sm font-semibold text-accent-lilac-text border-b border-border-gray pb-2">
+            <h4 className="mb-3 text-md font-semibold text-blue-100 border-b border-border-gray pb-2">
               Monetarisierung
             </h4>
             <div className="grid grid-cols-2 gap-3">
@@ -177,7 +177,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
                 onSave={save}
               />
               <div>
-                <label className="mb-0.5 block text-[11px] font-medium text-text-subtle">
+                <label className="mb-0.5 block text-sm font-medium text-an-60">
                   Variable (Zeitreihe)
                 </label>
                 <select
@@ -187,7 +187,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
                     onUpdate({ ...action, monetizationVariableId: val });
                     save("monetizationVariableId", val);
                   }}
-                  className="w-full rounded border border-border-gray px-2 py-1.5 text-sm text-text-primary outline-none focus:border-accent-lilac-text"
+                  className="w-full rounded border border-border-gray px-2 py-1.5 text-md text-an-100 outline-none focus:border-blue-100"
                 >
                   <option value="">-- keine --</option>
                   {variables.map((v) => (
@@ -202,7 +202,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
 
           {/* CAPEX Section */}
           <section>
-            <h4 className="mb-3 text-sm font-semibold text-accent-lilac-text border-b border-border-gray pb-2">
+            <h4 className="mb-3 text-md font-semibold text-blue-100 border-b border-border-gray pb-2">
               CAPEX (Investitionskosten)
             </h4>
             <div className="grid grid-cols-2 gap-3">
@@ -216,7 +216,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
 
           {/* Funding Section */}
           <section>
-            <h4 className="mb-3 text-sm font-semibold text-accent-lilac-text border-b border-border-gray pb-2">
+            <h4 className="mb-3 text-md font-semibold text-blue-100 border-b border-border-gray pb-2">
               Foerderung
             </h4>
             <div className="grid grid-cols-2 gap-3">
@@ -227,7 +227,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
 
           {/* OPEX Section */}
           <section>
-            <h4 className="mb-3 text-sm font-semibold text-accent-lilac-text border-b border-border-gray pb-2">
+            <h4 className="mb-3 text-md font-semibold text-blue-100 border-b border-border-gray pb-2">
               OPEX (laufende Kosten p.a.)
             </h4>
             <div className="grid grid-cols-2 gap-3">
@@ -240,7 +240,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
 
           {/* Other */}
           <section>
-            <h4 className="mb-3 text-sm font-semibold text-accent-lilac-text border-b border-border-gray pb-2">
+            <h4 className="mb-3 text-md font-semibold text-blue-100 border-b border-border-gray pb-2">
               Weitere Angaben
             </h4>
             <div className="grid grid-cols-2 gap-3">
@@ -249,7 +249,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
               <NumField label="Abschreibung (Jahre)" value={action.depreciationYears} field="depreciationYears" suffix="J." onSave={save} />
             </div>
             <div className="mt-3">
-              <label className="mb-0.5 block text-[11px] font-medium text-text-subtle">
+              <label className="mb-0.5 block text-sm font-medium text-an-60">
                 Begruendung
               </label>
               <textarea
@@ -260,7 +260,7 @@ export default function RoiInputsPanel({ action, onUpdate }: Props) {
                 }}
                 rows={2}
                 placeholder="Strategische Begruendung..."
-                className="w-full rounded border border-border-gray px-2 py-1.5 text-sm text-text-primary outline-none focus:border-accent-lilac-text resize-y"
+                className="w-full rounded border border-border-gray px-2 py-1.5 text-md text-an-100 outline-none focus:border-blue-100 resize-y"
               />
             </div>
           </section>
